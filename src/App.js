@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { observable, action } from 'mobx';
+import { observer } from 'mobx-react';
+
 import { createGlobalStyle } from 'styled-components';
 import TodoTemplate from './components/TodoTempl';
 import TodoHead from './components/TodoHead';
@@ -11,17 +14,28 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-function App() {
-  return (
-    <>
-      <GlobalStyle />
-      <TodoTemplate>
-        <TodoHead />
-        <TodoList />
-        <TodoCreate />
-      </TodoTemplate>
-    </>
-  );
+@observer
+class todoList extends Component {
+  @observable email = '';
+  @observable passwords = '';
+
+  constructor(props) {
+    super(props);
+  }
+  
+  render() {
+    const { email, password } = this
+    return (
+      <>
+        <GlobalStyle />
+        <TodoTemplate>
+          <TodoHead />
+          <TodoList />
+          <TodoCreate />
+        </TodoTemplate>
+      </>
+    );
+  }
 }
 
 export default App;
